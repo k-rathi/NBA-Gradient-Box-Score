@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+# To permit this cgi, replace # on the first line above with the
+# appropriate #!/path/to/perl shebang, and on Unix / Linux also
+# set this script executable with chmod 755.
+#
+# ***** !!! WARNING !!! *****
+# This script echoes the server environment variables and therefore
+# leaks information - so NEVER use it in a live server environment!
+# It is provided only for testing purpose.
+# Also note that it is subject to cross site scripting attacks on
+# MS IE and any other browser which fails to honor RFC2616. 
+
+##
+##  printenv -- demo CGI program which just prints its environment
+##
+use strict;
+use warnings;
+use CGI;
+use Cwd;
+use File::Basename;
+
+
+
+my $dir = Cwd::getcwd;
+my $FULLPROG = Cwd::abs_path($0);
+
+my $query = new CGI;
+my $team1 = $query->param('team1');
+my $team2 = $query->param('team2');
+my $date = $query->param('date');
+
+$date =~ s|\%20|\/|g;
+
+chdir("Kunal_NBA");
+print "Content-type: text/plain; charset=iso-8859-1\n\n";
+
+my $url = "http:\/\/stats.nba.com\/stats\/scoreboardv2\/?GameDate=$date\&LeagueID=00\&DayOffset=00";
+$date =~ s|\/||g;
+my $outJSONfl = "scoreboard/$date.json";
+	print`'/usr/bin/curl' '-H' 'Host: stats.nba.com' '-H' 'Referer: stats.nba.com/scores/' '-H' 'User-Agent:(Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36' '$url'`;

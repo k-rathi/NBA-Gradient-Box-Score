@@ -1,0 +1,26 @@
+<head>
+    <title> NBA Queries</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+    
+    <script src = "nba_com_game_FINISHED_JSON_output3.js"></script>
+    <script src="boxscore.js"></script>
+    <script src="teams.js"></script>
+    <script src="players.js"></script>    
+    <script src="newscoreboard.js"></script>
+    <script src="newscoreboard2.js"></script>
+    <script src= "nba_com_game_FINISHED_JSON_output4.js"></script>
+    
+    <script src="functions.js"></script>
+</head>
+
+<body onload='parseScoreboard(scoreboardV2)'>
+    <div>
+        <button onclick="getScoreboard()">change Date</button>
+    </div>
+    <div id="scoreboard"> </div>
+    <div id="box-score">
+        <div id = "homeTeam"></div>
+        <div id = "awayTeam"></div>
+    </div>
+</body>
